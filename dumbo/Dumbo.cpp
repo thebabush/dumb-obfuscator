@@ -13,6 +13,9 @@
 namespace {
   const int KEY_SIZE = 512;
 
+  /*
+   * Takes an OpenSLL BIGNUM and return an equivalent LLVM APInt.
+   */
   llvm::APInt ConvertBignum(const BIGNUM *bn) {
     // Get bytes in big-endian order
     int size = BN_num_bytes(bn);
@@ -28,20 +31,6 @@ namespace {
     }
 
     return out;
-  }
-
-  llvm::APInt MakeRandomInt(llvm::RandomNumberGenerator* rng, unsigned numBits) {
-    auto bit = llvm::APInt(numBits, 1, false);
-    auto ret = llvm::APInt(numBits, 0, false);
-
-    for (unsigned i=0; i<numBits; i++) {
-      if (((*rng)() % 2) != 0) {
-        ret |= bit;
-      }
-      bit <<= 1;
-    }
-
-    return ret;
   }
 
   /*

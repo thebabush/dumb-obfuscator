@@ -1,4 +1,5 @@
 #include "llvm/IR/IRBuilder.h"
+#include "llvm/Support/raw_ostream.h"
 
 #include <openssl/rsa.h>
 
@@ -151,7 +152,7 @@ namespace {
             modified = true;
           }
         }
-			}
+      }
 
       return modified;
     }

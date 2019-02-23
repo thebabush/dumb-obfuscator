@@ -36,7 +36,7 @@ namespace {
    * https://stackoverflow.com/questions/5927164/how-to-generate-rsa-private-key-using-openssl
    * https://www.codepool.biz/how-to-use-openssl-generate-rsa-keys-cc.html
    */
-  llvm::APInt MakeRandomKey(llvm::APInt& n, llvm::APInt &e, const llvm::APInt& target) {
+  llvm::APInt MakeRandomKey(const llvm::APInt& target, llvm::APInt& e, llvm::APInt &n) {
     // bne = 65537
     BIGNUM *bne = BN_new();
     assert(BN_set_word(bne, RSA_F4) == 1);
@@ -85,9 +85,9 @@ namespace {
       llvm::errs() << "Running on \"" << F.getName() << "\"\n";
 
       // A function is made of basic blocks...
-			for (llvm::BasicBlock& B : F) {
+      for (llvm::BasicBlock& B : F) {
         // ...which are made out of instructions...
-				for (llvm::Instruction& I : B) {
+        for (llvm::Instruction& I : B) {
           // ...and we only want `icmp` instructions...
           if (auto op = llvm::dyn_cast<llvm::ICmpInst>(&I)) {
             // ...which use the equality operator
@@ -131,9 +131,9 @@ namespace {
             // Declare it in the current module (or get a reference to it)
             llvm::Constant *_modexp = F.getParent()->getOrInsertFunction("_modexp", fccType);
 
-            // encryptedRhs = pow(n, e, rhs)
-            llvm::APInt n, e;
-            llvm::APInt encryptedRhs = MakeRandomKey(n, e, rhs->getValue());
+            // encryptedRhs = pow(rhs, e, n)
+            llvm::APInt e, n;
+            llvm::APInt encryptedRhs = MakeRandomKey(rhs->getValue(), e, n);
 
             // encryptedLhs = _modexp(lhs, e, n)
             std::vector<llvm::Value*> concreteArgs;

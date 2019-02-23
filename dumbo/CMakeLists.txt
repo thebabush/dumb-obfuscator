@@ -15,6 +15,11 @@ set_target_properties(DumboPass PROPERTIES
     COMPILE_FLAGS "-fno-rtti"
 )
 
+find_package(OpenSSL)
+add_definitions(${OPENSSL_DEFINITIONS})
+target_include_directories(DumboPass PRIVATE ${OPENSSL_INCLUDE_DIRS})
+target_link_libraries(DumboPass ${OPENSSL_LIBRARIES})
+
 # Get proper shared-library behavior (where symbols are not necessarily
 # resolved when the shared library is linked) on OS X.
 if(APPLE)

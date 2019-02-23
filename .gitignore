@@ -1,5 +1,7 @@
 build
 *xz
 *ll
+*o
 llvm_src/
 llvm_build/
+test/test

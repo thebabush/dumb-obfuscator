@@ -1,8 +1,20 @@
 cmake_minimum_required(VERSION 3.4)
 
-set(LLVM_ROOT "${CMAKE_SOURCE_DIR}/llvm_build/" CACHE PATH "Root of LLVM build.")
+#set(LLVM_ROOT "${CMAKE_SOURCE_DIR}/llvm_build/" CACHE PATH "Root of LLVM build.")
 
-# A bit of a sanity  check:
+execute_process(
+  COMMAND llvm-config-7 --src-root
+  RESULT_VARIABLE HAD_ERROR
+  OUTPUT_VARIABLE LLVM_ROOT
+)
+
+if (NOT HAD_ERROR)
+  string(REGEX REPLACE "[ \t]*[\r\n]+[ \t]*" "" LLVM_ROOT ${LLVM_ROOT})
+else()
+  message(FATAL_ERROR "llvm-config-7 failed -- ${HAD_ERROR}")
+endif()
+
+  # A bit of a sanity  check:
 if (NOT EXISTS ${LLVM_ROOT}/include/llvm)
   message(FATAL_ERROR "LLVM_ROOT (${LLVM_ROOT}) is invalid")
 endif()

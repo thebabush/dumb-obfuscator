@@ -7,9 +7,13 @@ If you want to read the step-by-step tutorial you can read the
 
 ## Setup ##
 
-With a working Internet connection, run `./setup.sh` and pray the Linux Gods
-that nothing fails.
-This will download LLVM and clang and then compile them.
+You should really read my blog post if you want this to work out of the box.
+Basically though, you just need to add LLVM's official apt repositories to your
+Ubuntu machine and install `clang-7`.
+
+Anyway, you can pretty much change LLVM version by changing every reference to
+`clang-7` to whatever clang you want to use.
+You need to change `llvm-config-7` references too.
 
 ## Building the Pass ##
 
@@ -22,5 +26,5 @@ This will basically create `./build/` and run cmake on it.
 Run `./test.sh`.
 
 This will compile `./test/test.c` into human-readable LLVM IR, run the pass on
-it and show the final IR.
+it, show the final IR and run the obfuscated program.
 

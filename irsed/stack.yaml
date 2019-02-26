@@ -1,0 +1,8 @@
+resolver: lts-13.9
+
+packages:
+- .
+
+extra-deps:
+- llvm-hs-7.0.1
+- llvm-hs-pretty-0.6.1.0

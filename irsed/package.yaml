@@ -1,0 +1,30 @@
+name:                irsed
+version:             0.1.0.0
+github:              "https://github.com/thebabush/dumbo/irsed"
+license:             BSD3
+author:              "babush"
+copyright:           "2019 Paolo Montesel"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+description:         Sed LLVM IR like a pro-ish dude.
+
+dependencies:
+- base >= 4.7 && < 5
+- syb
+- text
+- llvm-hs >= 7.0.1
+- llvm-hs-pure >= 7.0.0
+- llvm-hs-pretty >= 0.6.1.0
+
+library:
+  source-dirs: src
+
+executables:
+  irsed-exe:
+    main:                Main.hs
+    source-dirs:         app
+    dependencies:
+    - irsed

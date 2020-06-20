@@ -1,4 +1,4 @@
-add_llvm_loadable_module(DumboPass
+add_llvm_library(DumboPass MODULE
     # List your source files here.
     Dumbo.cpp
 

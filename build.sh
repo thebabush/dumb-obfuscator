@@ -10,7 +10,7 @@ cmake --build .
 cd ..
 cd helper
 echo "====> Making the helper..."
-clang-7 -S -emit-llvm -o modexp.ll modexp.c
+clang-9 -S -emit-llvm -o modexp.ll modexp.c
 echo "====> Extending the helper from i32 to i1024..."
 sed 's/i32/i1024/g' modexp.ll > modexp_wide.ll
 echo "====> Fixing wide char stuff..."

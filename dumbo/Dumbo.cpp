@@ -129,7 +129,7 @@ namespace {
               false
             );
             // Declare it in the current module (or get a reference to it)
-            llvm::Constant *_modexp = F.getParent()->getOrInsertFunction("_modexp", fccType);
+            llvm::FunctionCallee _modexp = F.getParent()->getOrInsertFunction("_modexp", fccType);
 
             // encryptedRhs = pow(rhs, e, n)
             llvm::APInt e, n;
@@ -140,7 +140,7 @@ namespace {
             concreteArgs.push_back(lhs);
             concreteArgs.push_back(llvm::ConstantInt::get(opType, e));
             concreteArgs.push_back(llvm::ConstantInt::get(opType, n));
-            llvm::Value* encryptedLhs = builder.CreateCall(fccType, _modexp, concreteArgs);
+            llvm::Value* encryptedLhs = builder.CreateCall(_modexp, concreteArgs);
 
             // Replace the original comparison with the encrypted one
             llvm::Value *newCmp = builder.CreateICmpEQ(

@@ -5,6 +5,8 @@ The answer to "why shouldn't people put RSA computations everywhere in their pro
 If you want to read the step-by-step tutorial you can read the
 [post on my blog](https://thebabush.github.io/dumbo-llvm-based-dumb-obfuscator.html).
 
+[![screenshot](https://thebabush.github.io/images/20190223_final_ida.png)](https://thebabush.github.io/dumbo-llvm-based-dumb-obfuscator.html)
+
 ## Setup ##
 
 You should really read my blog post if you want this to work out of the box.
